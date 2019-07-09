@@ -54,6 +54,7 @@ public class CameraMove : MonoBehaviour
                 //gyroSc.allowedMove = false;
                 AllowMo(false);
                 gyroSc.resetBoundColors();
+                gyroSc.newR = new Vector3(0, 0, 0);
             }
         }
     }
