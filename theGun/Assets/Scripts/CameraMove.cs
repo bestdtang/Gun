@@ -8,6 +8,7 @@ public class CameraMove : MonoBehaviour
     public int cameraStatus;
     public GameObject mainCamera;
     public GameObject canvasObject;
+
     private Animator cameraMoveAnim, canvasAnim;
 
     private void Start()
@@ -18,6 +19,12 @@ public class CameraMove : MonoBehaviour
         gyroSc = mainCamera.GetComponent<GyroNew>();
     }
 
+    private void AllowMo(bool allow)
+    {
+        gyroSc.allowedMove = allow;
+    }
+
+
     public void ZoomIn()
     {
         if (cameraStatus < 2)
@@ -27,7 +34,8 @@ public class CameraMove : MonoBehaviour
             canvasAnim.SetTrigger("in");
             if (cameraStatus == 1)
             {
-                gyroSc.allowedMove = true;
+                //gyroSc.allowedMove = true;
+                AllowMo(true);
             }
         }
     }
@@ -43,15 +51,14 @@ public class CameraMove : MonoBehaviour
             if (cameraStatus == 0)
             {
                 mainCamera.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-                gyroSc.allowedMove = false;
+                //gyroSc.allowedMove = false;
+                AllowMo(false);
+                gyroSc.resetBoundColors();
             }
         }
     }
 
-    private void AllowMo()
-    {
-        gyroSc.allowedMove = true;
-    }
+
 
 
 
