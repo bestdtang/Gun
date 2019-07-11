@@ -27,6 +27,7 @@ public class CameraMove : MonoBehaviour
 
     public void ZoomIn()
     {
+        //Debug.Log("in");
         if (cameraStatus < 2)
         {
             cameraStatus++;
@@ -42,6 +43,7 @@ public class CameraMove : MonoBehaviour
 
     public void ZoomOut()
     {
+        //Debug.Log("out");
         if (cameraStatus > 0)
         {
             cameraStatus--;
@@ -50,7 +52,7 @@ public class CameraMove : MonoBehaviour
 
             if (cameraStatus == 0)
             {
-                mainCamera.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                mainCamera.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
                 //gyroSc.allowedMove = false;
                 AllowMo(false);
                 gyroSc.resetBoundColors();

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Shoot : MonoBehaviour
 {
@@ -8,14 +9,28 @@ public class Shoot : MonoBehaviour
     public Camera _camera;
     public GameObject holePre;
     public Transform _holeParent;
+    public int sceneNum;
     private Vector3 rayOrigin;
     LayerMask shootableMask;
     private Animator cameraShakeAnim;
+
     void Start()
     {
         //shootableMask = LayerMask.GetMask("Shootable");
         //layerMask = ~layerMask;
         cameraShakeAnim = _camera.transform.parent.parent.gameObject.GetComponent<Animator>();
+        if (SceneManager.GetActiveScene().name == "LevelTwo")
+        {
+            sceneNum = 2;
+        }
+        else if (SceneManager.GetActiveScene().name == "LevelOne")
+        {
+            sceneNum = 1;
+        }
+        else
+        {
+            sceneNum = 0;
+        }
     }
 
     public void ShootBullet()
@@ -30,8 +45,17 @@ public class Shoot : MonoBehaviour
             //Debug.Log("hit");
             //Destroy(hitObj.transform.gameObject);
             GameObject parent = hitObj.transform.parent.gameObject;
-            Animator tarAnim = parent.GetComponent<Animator>();
-            tarAnim.SetTrigger("shoot");
+            if (sceneNum == 0)
+            {
+                Animator tarAnim = parent.GetComponent<Animator>();
+                tarAnim.SetTrigger("shoot");
+            }
+            else if (sceneNum == 2)
+            {
+                LevelTwoTarget targetSc = parent.GetComponent<LevelTwoTarget>();
+                targetSc.GetShot();
+            }
+
         }
         else
         {

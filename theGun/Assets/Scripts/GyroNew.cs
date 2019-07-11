@@ -70,28 +70,28 @@ public class GyroNew : MonoBehaviour
         //camera stuck
         if ((newRotation.y < 360 - range.y && newRotation.y > range.y) && (newRotation.x < 360 - range.x && newRotation.x > range.x))
         {
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, newRotation.z);
+            transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y, newRotation.z);
         }
         else if (newRotation.y < 360 - range.y && newRotation.y > range.y)
         {
-            transform.rotation = Quaternion.Euler(newRotation.x, transform.rotation.eulerAngles.y, newRotation.z);
+            transform.localRotation = Quaternion.Euler(newRotation.x, transform.localRotation.eulerAngles.y, newRotation.z);
         }
         else if (newRotation.x < 360 - range.x && newRotation.x > range.x)
         {
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, newRotation.y, newRotation.z);
+            transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, newRotation.y, newRotation.z);
         }
         else
         {
-            transform.rotation = Quaternion.Euler(newRotation);
+            transform.localRotation = Quaternion.Euler(newRotation);
         }
 
         //UI lightup
         float leftT, rightT, topT, downT;
 
-        leftT = exceedOne((360 - rangeWarn.y - transform.rotation.eulerAngles.y) / 5);
-        rightT = exceedOne((transform.rotation.eulerAngles.y - rangeWarn.y) / 5);
-        topT = exceedOne((360 - rangeWarn.x - transform.rotation.eulerAngles.x) / 5);
-        downT = exceedOne((transform.rotation.eulerAngles.x - rangeWarn.x) / 5);
+        leftT = exceedOne((360 - rangeWarn.y - transform.localRotation.eulerAngles.y) / 5);
+        rightT = exceedOne((transform.localRotation.eulerAngles.y - rangeWarn.y) / 5);
+        topT = exceedOne((360 - rangeWarn.x - transform.localRotation.eulerAngles.x) / 5);
+        downT = exceedOne((transform.localRotation.eulerAngles.x - rangeWarn.x) / 5);
 
         leftBound.color = new Color(leftBound.color.r, leftBound.color.g, leftBound.color.b, leftT);
         rightBound.color = new Color(rightBound.color.r, rightBound.color.g, rightBound.color.b, rightT);
