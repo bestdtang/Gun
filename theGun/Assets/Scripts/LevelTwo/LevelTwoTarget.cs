@@ -22,20 +22,19 @@ public class LevelTwoTarget : MonoBehaviour
             //Mission Failed
             //escapeSequence.time -= timeStep;
             LevelTwoMasterSc.isFailed = true;
-            LevelTwoMasterSc.FailedCameraFocus();
-
-
+            LevelTwoMasterSc.FailedCameraFocus(transform.position);
         }
-
-
     }
 
     public void GetShot()
     {
-        isDead = true;
-        effectOne.Play();
-        effectTwo.Play();
-        targetObj.SetActive(false);
+        if (!isOut)
+        {
+            isDead = true;
+            effectOne.Play();
+            effectTwo.Play();
+            targetObj.SetActive(false);
+        }
     }
 
 

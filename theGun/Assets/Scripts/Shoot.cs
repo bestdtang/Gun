@@ -14,11 +14,13 @@ public class Shoot : MonoBehaviour
     LayerMask shootableMask;
     private Animator cameraShakeAnim;
 
+
     void Start()
     {
         //shootableMask = LayerMask.GetMask("Shootable");
         //layerMask = ~layerMask;
         cameraShakeAnim = _camera.transform.parent.parent.gameObject.GetComponent<Animator>();
+
         if (SceneManager.GetActiveScene().name == "LevelTwo")
         {
             sceneNum = 2;
@@ -39,6 +41,15 @@ public class Shoot : MonoBehaviour
         rayOrigin = _camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
         Physics.Raycast(_camera.transform.position, _camera.transform.forward, out hitObj, 400f);//, shootableMask);
         cameraShakeAnim.SetTrigger("shake");
+        if (sceneNum == 2)
+        {
+            LevelTwoControl Con2Sc = GetComponent<LevelTwoControl>();
+            if (!Con2Sc.startToEscape)
+            {
+                Con2Sc.PlayEscapeSequence();
+                Con2Sc.startToEscape = true;
+            }
+        }
 
         if (hitObj.transform.tag == "Target")
         {
@@ -54,6 +65,19 @@ public class Shoot : MonoBehaviour
             {
                 LevelTwoTarget targetSc = parent.GetComponent<LevelTwoTarget>();
                 targetSc.GetShot();
+                LevelTwoControl Con2Sc = GetComponent<LevelTwoControl>();
+                if (!Con2Sc.startToEscape)
+                {
+                    Con2Sc.PlayEscapeSequence();
+                    Con2Sc.startToEscape = true;
+                }
+
+                Con2Sc.killedNum++;
+                if (Con2Sc.killedNum >= 5)
+                {
+                    Con2Sc.Win();
+                }
+
             }
 
         }
