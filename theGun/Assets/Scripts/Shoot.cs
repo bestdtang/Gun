@@ -35,6 +35,11 @@ public class Shoot : MonoBehaviour
         }
     }
 
+    public void Exit()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
     public void ShootBullet()
     {
         RaycastHit hitObj;
