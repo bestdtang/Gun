@@ -46,6 +46,8 @@ public class Shoot : MonoBehaviour
         rayOrigin = _camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
         Physics.Raycast(_camera.transform.position, _camera.transform.forward, out hitObj, 400f);//, shootableMask);
         cameraShakeAnim.SetTrigger("shake");
+
+        //Start to escap
         if (sceneNum == 2)
         {
             LevelTwoControl Con2Sc = GetComponent<LevelTwoControl>();
@@ -71,11 +73,12 @@ public class Shoot : MonoBehaviour
                 LevelTwoTarget targetSc = parent.GetComponent<LevelTwoTarget>();
                 targetSc.GetShot();
                 LevelTwoControl Con2Sc = GetComponent<LevelTwoControl>();
-                if (!Con2Sc.startToEscape)
-                {
-                    Con2Sc.PlayEscapeSequence();
-                    Con2Sc.startToEscape = true;
-                }
+
+                // if (!Con2Sc.startToEscape)
+                // {
+                //     Con2Sc.PlayEscapeSequence();
+                //     Con2Sc.startToEscape = true;
+                // }
 
                 Con2Sc.killedNum++;
                 if (Con2Sc.killedNum >= 5)
@@ -83,6 +86,11 @@ public class Shoot : MonoBehaviour
                     Con2Sc.Win();
                 }
 
+            }
+            else if (sceneNum == 1)
+            {
+                LevelOneControl Con1Sc = GetComponent<LevelOneControl>();
+                Con1Sc.targetLeft--;
             }
 
         }
@@ -94,6 +102,14 @@ public class Shoot : MonoBehaviour
             //newHole.transform.position = newPosit;
             //newHole.transform.LookAt(_camera.transform);
             newHole.transform.SetParent(_holeParent);
+        }
+
+        //caculus win condition
+        if (sceneNum == 1)
+        {
+            LevelOneControl Con1Sc = GetComponent<LevelOneControl>();
+            Con1Sc.bulletsLeft--;
+            Con1Sc.CheckIfWinOrLose();
         }
 
     }

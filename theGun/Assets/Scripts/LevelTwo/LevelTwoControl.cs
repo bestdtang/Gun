@@ -36,10 +36,6 @@ public class LevelTwoControl : MonoBehaviour
         escapingSequc.Play();
     }
 
-    public void ReStart()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
 
     public void FailedCameraFocus(Vector3 escapPosi)
     {

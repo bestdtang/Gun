@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraMove : MonoBehaviour
 {
@@ -17,6 +18,11 @@ public class CameraMove : MonoBehaviour
         cameraMoveAnim = mainCamera.GetComponent<Animator>();
         canvasAnim = canvasObject.GetComponent<Animator>();
         gyroSc = mainCamera.GetComponent<GyroNew>();
+    }
+
+    public void ReStart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void AllowMo(bool allow)
