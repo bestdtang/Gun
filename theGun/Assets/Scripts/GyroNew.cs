@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GyroNew : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class GyroNew : MonoBehaviour
         //cameraContainer = new GameObject("Camera Container");
         //cameraContainer.transform.position = transform.position;
         // transform.SetParent(cameraContainer.transform);
+        allowedMove = false;
         gyroEnabled = EnableGyro();
     }
 

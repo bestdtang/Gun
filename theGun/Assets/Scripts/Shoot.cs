@@ -29,6 +29,10 @@ public class Shoot : MonoBehaviour
         {
             sceneNum = 1;
         }
+        else if (SceneManager.GetActiveScene().name == "LevelThree")
+        {
+            sceneNum = 3;
+        }
         else
         {
             sceneNum = 0;
@@ -60,47 +64,41 @@ public class Shoot : MonoBehaviour
 
         if (hitObj.transform.tag == "Target")
         {
-            //Debug.Log("hit");
-            //Destroy(hitObj.transform.gameObject);
             GameObject parent = hitObj.transform.parent.gameObject;
             if (sceneNum == 0)
             {
+                Debug.Log("shoot");
                 Animator tarAnim = parent.GetComponent<Animator>();
                 tarAnim.SetTrigger("shoot");
+            }
+            else if (sceneNum == 1)
+            {
+                LevelOneTarget targetOneSc = parent.GetComponent<LevelOneTarget>();
+                targetOneSc.GetHit(true);
             }
             else if (sceneNum == 2)
             {
                 LevelTwoTarget targetSc = parent.GetComponent<LevelTwoTarget>();
                 targetSc.GetShot();
-                LevelTwoControl Con2Sc = GetComponent<LevelTwoControl>();
-
-                // if (!Con2Sc.startToEscape)
-                // {
-                //     Con2Sc.PlayEscapeSequence();
-                //     Con2Sc.startToEscape = true;
-                // }
-
-                Con2Sc.killedNum++;
-                if (Con2Sc.killedNum >= 5)
-                {
-                    Con2Sc.Win();
-                }
 
             }
-            else if (sceneNum == 1)
+            else if (sceneNum == 3)
             {
-                LevelOneControl Con1Sc = GetComponent<LevelOneControl>();
-                Con1Sc.targetLeft--;
+                LevelThreeTarget targetThreeSc = parent.GetComponent<LevelThreeTarget>();
+                targetThreeSc.GetHit();
             }
-
+        }
+        else if (hitObj.transform.tag == "People")
+        {
+            GameObject parent = hitObj.transform.parent.gameObject;
+            LevelOneTarget targetOneSc = parent.GetComponent<LevelOneTarget>();
+            targetOneSc.GetHit(false);
         }
         else
         {
+            //create a bullet hole
             Vector3 newPosit = hitObj.point + (_camera.transform.position - hitObj.point).normalized * 0.01f;
             GameObject newHole = Instantiate(holePre, newPosit, Quaternion.FromToRotation(Vector3.up, hitObj.normal));
-
-            //newHole.transform.position = newPosit;
-            //newHole.transform.LookAt(_camera.transform);
             newHole.transform.SetParent(_holeParent);
         }
 
@@ -108,8 +106,7 @@ public class Shoot : MonoBehaviour
         if (sceneNum == 1)
         {
             LevelOneControl Con1Sc = GetComponent<LevelOneControl>();
-            Con1Sc.bulletsLeft--;
-            Con1Sc.CheckIfWinOrLose();
+            Con1Sc.loseBullet();
         }
 
     }

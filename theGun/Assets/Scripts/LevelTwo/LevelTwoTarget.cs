@@ -34,6 +34,12 @@ public class LevelTwoTarget : MonoBehaviour
             effectOne.Play();
             effectTwo.Play();
             targetObj.SetActive(false);
+            LevelTwoMasterSc.killedNum++;
+            if (LevelTwoMasterSc.killedNum >= 5)
+            {
+                LevelTwoMasterSc.Win();
+            }
+
         }
     }
 

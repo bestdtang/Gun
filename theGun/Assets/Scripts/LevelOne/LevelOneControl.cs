@@ -8,9 +8,19 @@ public class LevelOneControl : MonoBehaviour
     public int bulletsLeft, targetLeft;
     public GyroNew gyroSc;
     public Animator uiAnim;
+    public GameObject[] bullets;
     void Start()
     {
+        Time.timeScale = 1;
 
+    }
+
+    public void loseBullet()
+    {
+        bulletsLeft--;
+        Animator bulletAnim = bullets[bulletsLeft].GetComponent<Animator>();
+        bulletAnim.SetBool("used", true);
+        CheckIfWinOrLose();
     }
     void WaitWin()
     {
@@ -24,7 +34,7 @@ public class LevelOneControl : MonoBehaviour
         uiAnim.SetTrigger("lose");
     }
 
-    private void SlowAndFocus(bool win)
+    public void SlowAndFocus(bool win)
     {
         gyroSc.allowedMove = false;
         Time.timeScale = 0.2f;
@@ -40,7 +50,7 @@ public class LevelOneControl : MonoBehaviour
 
     public void CheckIfWinOrLose()
     {
-        Debug.Log(bulletsLeft + "  " + targetLeft);
+        // Debug.Log(bulletsLeft + "  " + targetLeft);
         if (targetLeft == 0)
         {
             //win

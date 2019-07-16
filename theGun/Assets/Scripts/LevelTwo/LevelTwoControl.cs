@@ -29,6 +29,7 @@ public class LevelTwoControl : MonoBehaviour
         cameraSc = transform.GetComponent<CameraMove>();
         //gyroSc = transform.GetComponent<GyroNew>();
         startWinTime = 0;
+        Time.timeScale = 1;
     }
 
     public void PlayEscapeSequence()

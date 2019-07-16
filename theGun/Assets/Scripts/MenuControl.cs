@@ -25,6 +25,10 @@ public class MenuControl : MonoBehaviour
     {
         SceneManager.LoadScene("LevelTwo");
     }
+    public void LevelThree()
+    {
+        SceneManager.LoadScene("LevelThree");
+    }
 
     // Update is called once per frame
     void Update()
