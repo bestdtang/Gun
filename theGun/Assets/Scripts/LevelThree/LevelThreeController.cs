@@ -7,8 +7,7 @@ using UnityEngine.SceneManagement;
 public class LevelThreeController : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Transform[] spawnPositions;
-    public Transform[] targetPositions;
+    public Transform[] way1, way2, way3, way4;
     public GameObject targetPre, restartButton, startGame;
     public float spawnSpeed, bulletSpeed;
     public float lastTime, lastBulletTime;
@@ -47,17 +46,24 @@ public class LevelThreeController : MonoBehaviour
         gyroSc.allowedMove = true;
     }
 
-    void WaitWin()
+    void Pause()
     {
         Time.timeScale = 0;
+    }
+
+    void WaitWin()
+    {
+        Time.timeScale = 1;
         UIAnim.SetTrigger("win");
         restartButton.SetActive(true);
+        Invoke("Pause", 0.5f);
     }
     void WaitLose()
     {
-        Time.timeScale = 0;
+        Time.timeScale = 1;
         UIAnim.SetTrigger("lose");
         restartButton.SetActive(true);
+        Invoke("Pause", 0.5f);
     }
 
     public void SlowAndFocus(bool win)
@@ -66,17 +72,32 @@ public class LevelThreeController : MonoBehaviour
         Time.timeScale = 0.2f;
         if (win)
         {
-            Invoke("WaitWin", 0.5f);
+            Invoke("WaitWin", 0.2f);
         }
         else
         {
-            Invoke("WaitLose", 0.5f);
+            Invoke("WaitLose", 0.2f);
         }
     }
     Vector3 pickPosition(Transform[] trans)
     {
         int num = Mathf.Clamp(Random.Range(0, trans.Length), 0, trans.Length - 1);
         return trans[num].position;
+    }
+
+    Transform[] PickWay()
+    {
+        switch (Mathf.Clamp(Random.Range(1, 5), 1, 4))
+        {
+            case 1:
+                return way1;
+            case 2:
+                return way2;
+            case 3:
+                return way3;
+            default:
+                return way4;
+        }
     }
     public void isShoot()
     {
@@ -110,20 +131,22 @@ public class LevelThreeController : MonoBehaviour
     {
         if (Time.time - lastBulletTime > bulletSpeed && bulletLeft >= 1)
         {
-            shootSc.ShootBullet();
             bulletLeft--;
             bulletBar.fillAmount = bulletLeft / bulletTotal;
             lastBulletTime = Time.time;
+            shootSc.ShootBullet();
         }
     }
     void spawnNew()
     {
         if (Time.time - lastTime > spawnSpeed)
         {
-            GameObject newtarget = Instantiate(targetPre, pickPosition(spawnPositions), Quaternion.identity);
+            GameObject newtarget = Instantiate(targetPre);
             LevelThreeTarget targetSc = newtarget.GetComponent<LevelThreeTarget>();
             targetSc.speed = 3;
-            targetSc.targetPosition = pickPosition(targetPositions);
+            targetSc.force = 20;
+            targetSc.positions = PickWay();
+            newtarget.transform.position = targetSc.positions[0].position;
             lastTime = Time.time + spawnSpeed * Random.Range(-0.5f, 0.5f);
         }
 

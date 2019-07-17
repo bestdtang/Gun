@@ -64,28 +64,32 @@ public class Shoot : MonoBehaviour
 
         if (hitObj.transform.tag == "Target")
         {
-            GameObject parent = hitObj.transform.parent.gameObject;
+            //GameObject parent = hitObj.transform.gameObject;
             if (sceneNum == 0)
             {
+                GameObject parent = hitObj.transform.parent.gameObject;
                 Debug.Log("shoot");
                 Animator tarAnim = parent.GetComponent<Animator>();
                 tarAnim.SetTrigger("shoot");
             }
             else if (sceneNum == 1)
             {
+                GameObject parent = hitObj.transform.parent.gameObject;
                 LevelOneTarget targetOneSc = parent.GetComponent<LevelOneTarget>();
                 targetOneSc.GetHit(true);
             }
             else if (sceneNum == 2)
             {
+                GameObject parent = hitObj.transform.parent.gameObject;
                 LevelTwoTarget targetSc = parent.GetComponent<LevelTwoTarget>();
                 targetSc.GetShot();
 
             }
             else if (sceneNum == 3)
             {
-                LevelThreeTarget targetThreeSc = parent.GetComponent<LevelThreeTarget>();
-                targetThreeSc.GetHit();
+                GameObject parent = hitObj.transform.gameObject;
+                LevelThreeTarget targetThreeSc = hitObj.transform.GetComponent<LevelThreeTarget>();
+                targetThreeSc.GetHit(hitObj.point);
             }
         }
         else if (hitObj.transform.tag == "People")

@@ -11,7 +11,7 @@ public class HealthColli : MonoBehaviour
         if (other.tag == "Target")
         {
             masterSc.HealthLose();
-            Destroy(other.transform.parent.gameObject);
+            Destroy(other.transform.gameObject);
         }
     }
 }
