@@ -20,7 +20,7 @@ public class LevelThreeTarget : MonoBehaviour
 
     private Vector3 dir, nextposi;
     private Rigidbody rigid;
-    private int posiNum;
+    public int posiNum;
 
     GameObject effectBoth;
 
@@ -38,19 +38,37 @@ public class LevelThreeTarget : MonoBehaviour
 
         //transform.position = positions[0].position + RandomPo();
         rigid = transform.GetComponent<Rigidbody>();
-        //nextposi = positions[1].position + RandomPo();
+        nextposi = positions[0].position + RandomPo();
+    }
+
+    bool passNextPoint()
+    {
+        float dis, mydis;
+        if (posiNum + 1 <= positions.Length - 1)
+        {
+            dis = (nextposi - positions[posiNum + 1].position).magnitude;
+            mydis = (transform.position - positions[posiNum + 1].position).magnitude;
+            if (mydis < dis)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     void TargetMove()
     {
         float velomag = rigid.velocity.magnitude;
-        nextposi = positions[posiNum].position + RandomPo();
+        //nextposi = positions[posiNum].position + RandomPo();
         dir = nextposi - transform.position;
-        if (dir.magnitude <= 1f && posiNum < positions.Length - 1)
+        if ((dir.magnitude <= 0.5f || passNextPoint()) && posiNum < positions.Length - 1)
         {
             posiNum++;
             nextposi = positions[posiNum].position + RandomPo();
             dir = nextposi - transform.position;
+
+
         }
         dir.Normalize();
         if (velomag <= speed)
@@ -60,7 +78,7 @@ public class LevelThreeTarget : MonoBehaviour
     }
     Vector3 RandomPo()
     {
-        Vector3 p = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
+        Vector3 p = new Vector3(Random.Range(-0.3f, 0.3f), 0, Random.Range(-0.3f, 0.3f));
         return p;
     }
 

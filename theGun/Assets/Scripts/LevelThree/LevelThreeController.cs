@@ -97,7 +97,7 @@ public class LevelThreeController : MonoBehaviour
             case 3:
                 return way3;
             default:
-                return way1;
+                return way4;
         }
     }
     public void isShoot()
@@ -142,10 +142,15 @@ public class LevelThreeController : MonoBehaviour
     {
         if (Time.time - lastTime > spawnSpeed)
         {
+            if (Random.Range(0, 10) < 3)
+            {
+                lastTime = Time.time + spawnSpeed * Random.Range(-0.5f, 0.5f);
+                return;
+            }
             GameObject newtarget = Instantiate(targetPre);
             LevelThreeTarget targetSc = newtarget.GetComponent<LevelThreeTarget>();
-            targetSc.speed = 3 + Random.Range(-1, 1);
-            targetSc.force = 20 + Random.Range(-5, 5);
+            targetSc.speed = 4f + Random.Range(-1f, 1f);
+            targetSc.force = 20f + Random.Range(-5f, 5f);
             targetSc.positions = PickWay();
             newtarget.transform.position = targetSc.positions[0].position;
             lastTime = Time.time + spawnSpeed * Random.Range(-0.5f, 0.5f);

@@ -4861,8 +4861,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8271532279048229211}
   - component: {fileID: 8271532279048229208}
-  - component: {fileID: 4854272575150187877}
   - component: {fileID: 64479316851422505}
+  - component: {fileID: 1564240853}
   m_Layer: 9
   m_Name: TargetPre_3
   m_TagString: Target
@@ -4901,19 +4901,6 @@ MonoBehaviour:
   force: 0
   speed: 3
   positions: []
---- !u!135 &4854272575150187877
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8271532279048229209}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &64479316851422505
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4930,6 +4917,20 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!136 &1564240853
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8271532279048229209}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.6513494
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.23192206, z: 0}
 --- !u!1 &8271532279911264648
 GameObject:
   m_ObjectHideFlags: 0

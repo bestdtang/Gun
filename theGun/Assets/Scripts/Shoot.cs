@@ -48,69 +48,71 @@ public class Shoot : MonoBehaviour
     {
         RaycastHit hitObj;
         rayOrigin = _camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
-        Physics.Raycast(_camera.transform.position, _camera.transform.forward, out hitObj, 400f, unshootableMask);
-        cameraShakeAnim.SetTrigger("shake");
-
-        //Start to escap
-        if (sceneNum == 2)
+        if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out hitObj, 400f, unshootableMask))
         {
-            LevelTwoControl Con2Sc = GetComponent<LevelTwoControl>();
-            if (!Con2Sc.startToEscape)
-            {
-                Con2Sc.PlayEscapeSequence();
-                Con2Sc.startToEscape = true;
-            }
-        }
+            cameraShakeAnim.SetTrigger("shake");
 
-        if (hitObj.transform.tag == "Target")
-        {
-            //GameObject parent = hitObj.transform.gameObject;
-            if (sceneNum == 0)
+            //Start to escap
+            if (sceneNum == 2)
             {
-                GameObject parent = hitObj.transform.parent.gameObject;
-                Debug.Log("shoot");
-                Animator tarAnim = parent.GetComponent<Animator>();
-                tarAnim.SetTrigger("shoot");
+                LevelTwoControl Con2Sc = GetComponent<LevelTwoControl>();
+                if (!Con2Sc.startToEscape)
+                {
+                    Con2Sc.PlayEscapeSequence();
+                    Con2Sc.startToEscape = true;
+                }
             }
-            else if (sceneNum == 1)
+
+            if (hitObj.transform.tag == "Target")
+            {
+                //GameObject parent = hitObj.transform.gameObject;
+                if (sceneNum == 0)
+                {
+                    GameObject parent = hitObj.transform.parent.gameObject;
+                    Debug.Log("shoot");
+                    Animator tarAnim = parent.GetComponent<Animator>();
+                    tarAnim.SetTrigger("shoot");
+                }
+                else if (sceneNum == 1)
+                {
+                    GameObject parent = hitObj.transform.parent.gameObject;
+                    LevelOneTarget targetOneSc = parent.GetComponent<LevelOneTarget>();
+                    targetOneSc.GetHit(true);
+                }
+                else if (sceneNum == 2)
+                {
+                    GameObject parent = hitObj.transform.parent.gameObject;
+                    LevelTwoTarget targetSc = parent.GetComponent<LevelTwoTarget>();
+                    targetSc.GetShot();
+
+                }
+                else if (sceneNum == 3)
+                {
+                    GameObject parent = hitObj.transform.gameObject;
+                    LevelThreeTarget targetThreeSc = hitObj.transform.GetComponent<LevelThreeTarget>();
+                    targetThreeSc.GetHit(hitObj.point);
+                }
+            }
+            else if (hitObj.transform.tag == "People")
             {
                 GameObject parent = hitObj.transform.parent.gameObject;
                 LevelOneTarget targetOneSc = parent.GetComponent<LevelOneTarget>();
-                targetOneSc.GetHit(true);
+                targetOneSc.GetHit(false);
             }
-            else if (sceneNum == 2)
+            else
             {
-                GameObject parent = hitObj.transform.parent.gameObject;
-                LevelTwoTarget targetSc = parent.GetComponent<LevelTwoTarget>();
-                targetSc.GetShot();
-
+                //create a bullet hole
+                Vector3 newPosit = hitObj.point + (_camera.transform.position - hitObj.point).normalized * 0.01f;
+                GameObject newHole = Instantiate(holePre, newPosit, Quaternion.FromToRotation(Vector3.up, hitObj.normal));
+                newHole.transform.SetParent(_holeParent);
             }
-            else if (sceneNum == 3)
+
+            //caculus win condition
+            if (sceneNum == 1)
             {
-                GameObject parent = hitObj.transform.gameObject;
-                LevelThreeTarget targetThreeSc = hitObj.transform.GetComponent<LevelThreeTarget>();
-                targetThreeSc.GetHit(hitObj.point);
+                LevelOneControl Con1Sc = GetComponent<LevelOneControl>();
+                Con1Sc.loseBullet();
             }
-        }
-        else if (hitObj.transform.tag == "People")
-        {
-            GameObject parent = hitObj.transform.parent.gameObject;
-            LevelOneTarget targetOneSc = parent.GetComponent<LevelOneTarget>();
-            targetOneSc.GetHit(false);
-        }
-        else
-        {
-            //create a bullet hole
-            Vector3 newPosit = hitObj.point + (_camera.transform.position - hitObj.point).normalized * 0.01f;
-            GameObject newHole = Instantiate(holePre, newPosit, Quaternion.FromToRotation(Vector3.up, hitObj.normal));
-            newHole.transform.SetParent(_holeParent);
-        }
-
-        //caculus win condition
-        if (sceneNum == 1)
-        {
-            LevelOneControl Con1Sc = GetComponent<LevelOneControl>();
-            Con1Sc.loseBullet();
         }
 
     }

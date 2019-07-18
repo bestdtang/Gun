@@ -1807,6 +1807,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Controller
       objectReference: {fileID: 0}
+    - target: {fileID: 5283202476712506050, guid: 60717fe30be1c6e4ea8dc22b7fd18246,
+        type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 242779988}
+    - target: {fileID: 5283202476712506050, guid: 60717fe30be1c6e4ea8dc22b7fd18246,
+        type: 3}
+      propertyPath: canvasObject
+      value: 
+      objectReference: {fileID: 1844925950}
+    - target: {fileID: 5283202476712506048, guid: 60717fe30be1c6e4ea8dc22b7fd18246,
+        type: 3}
+      propertyPath: _camera
+      value: 
+      objectReference: {fileID: 1467215022}
+    - target: {fileID: 5283202476712506048, guid: 60717fe30be1c6e4ea8dc22b7fd18246,
+        type: 3}
+      propertyPath: _holeParent
+      value: 
+      objectReference: {fileID: 741162976}
     - target: {fileID: 5283202476712506051, guid: 60717fe30be1c6e4ea8dc22b7fd18246,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1862,26 +1882,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5283202476712506050, guid: 60717fe30be1c6e4ea8dc22b7fd18246,
-        type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 242779988}
-    - target: {fileID: 5283202476712506050, guid: 60717fe30be1c6e4ea8dc22b7fd18246,
-        type: 3}
-      propertyPath: canvasObject
-      value: 
-      objectReference: {fileID: 1844925950}
-    - target: {fileID: 5283202476712506048, guid: 60717fe30be1c6e4ea8dc22b7fd18246,
-        type: 3}
-      propertyPath: _camera
-      value: 
-      objectReference: {fileID: 1467215022}
-    - target: {fileID: 5283202476712506048, guid: 60717fe30be1c6e4ea8dc22b7fd18246,
-        type: 3}
-      propertyPath: _holeParent
-      value: 
-      objectReference: {fileID: 741162976}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60717fe30be1c6e4ea8dc22b7fd18246, type: 3}
 --- !u!1001 &5518898469935551261
@@ -2202,6 +2202,11 @@ PrefabInstance:
     - target: {fileID: 1031125608, guid: 1e509a0d3d546544a943ec6683b90d66, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7571539958706218529, guid: 1e509a0d3d546544a943ec6683b90d66,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e509a0d3d546544a943ec6683b90d66, type: 3}
