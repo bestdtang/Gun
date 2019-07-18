@@ -79,11 +79,12 @@ public class LevelThreeController : MonoBehaviour
             Invoke("WaitLose", 0.2f);
         }
     }
-    Vector3 pickPosition(Transform[] trans)
-    {
-        int num = Mathf.Clamp(Random.Range(0, trans.Length), 0, trans.Length - 1);
-        return trans[num].position;
-    }
+    // Vector3 pickPosition(Transform[] trans)
+    // {
+    //     int num = Mathf.Clamp(Random.Range(0, trans.Length), 0, trans.Length - 1);
+    //     return trans[0].position;
+    //     //return trans[num].position;
+    // }
 
     Transform[] PickWay()
     {
@@ -96,7 +97,7 @@ public class LevelThreeController : MonoBehaviour
             case 3:
                 return way3;
             default:
-                return way4;
+                return way1;
         }
     }
     public void isShoot()
@@ -143,8 +144,8 @@ public class LevelThreeController : MonoBehaviour
         {
             GameObject newtarget = Instantiate(targetPre);
             LevelThreeTarget targetSc = newtarget.GetComponent<LevelThreeTarget>();
-            targetSc.speed = 3;
-            targetSc.force = 20;
+            targetSc.speed = 3 + Random.Range(-1, 1);
+            targetSc.force = 20 + Random.Range(-5, 5);
             targetSc.positions = PickWay();
             newtarget.transform.position = targetSc.positions[0].position;
             lastTime = Time.time + spawnSpeed * Random.Range(-0.5f, 0.5f);

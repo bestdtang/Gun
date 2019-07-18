@@ -60,7 +60,7 @@ public class LevelThreeTarget : MonoBehaviour
     }
     Vector3 RandomPo()
     {
-        Vector3 p = new Vector3(Random.Range(-0.2f, 0.2f), 0, Random.Range(-0.2f, 0.2f));
+        Vector3 p = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
         return p;
     }
 

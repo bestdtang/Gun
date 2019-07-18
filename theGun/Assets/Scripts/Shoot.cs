@@ -11,14 +11,14 @@ public class Shoot : MonoBehaviour
     public Transform _holeParent;
     public int sceneNum;
     private Vector3 rayOrigin;
-    LayerMask shootableMask;
+    LayerMask unshootableMask;
     private Animator cameraShakeAnim;
 
 
     void Start()
     {
-        //shootableMask = LayerMask.GetMask("Shootable");
-        //layerMask = ~layerMask;
+        unshootableMask = LayerMask.GetMask("Unshootable");
+        unshootableMask = ~unshootableMask;
         cameraShakeAnim = _camera.transform.parent.parent.gameObject.GetComponent<Animator>();
 
         if (SceneManager.GetActiveScene().name == "LevelTwo")
@@ -48,7 +48,7 @@ public class Shoot : MonoBehaviour
     {
         RaycastHit hitObj;
         rayOrigin = _camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
-        Physics.Raycast(_camera.transform.position, _camera.transform.forward, out hitObj, 400f);//, shootableMask);
+        Physics.Raycast(_camera.transform.position, _camera.transform.forward, out hitObj, 400f, unshootableMask);
         cameraShakeAnim.SetTrigger("shake");
 
         //Start to escap
